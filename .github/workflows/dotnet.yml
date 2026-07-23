@@ -31,22 +31,26 @@ jobs:
       run: dotnet restore
       
     - name: Build Project
-      run: dotnet build ./Mauren.Net.slnx --configuration Release \
+      run: |
+        dotnet build ./Mauren.Net.slnx --configuration Release \
         --no-restore
       
     - name: Test Project
-      run: dotnet test --configuration Release \
+      run: |
+        dotnet test --configuration Release \
         --no-build \
         --verbosity normal
 
     - name: Pack NuGet Package
-      run: dotnet pack --configuration Release \
+      run: |
+        dotnet pack --configuration Release \
         --no-build \
         --output ./packages
       
     - name: Publish NuGet Package
       if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-      run: dotnet nuget push ./packages/*.nupkg \
+      run: |
+        dotnet nuget push ./packages/*.nupkg \
         --source 'https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json' \
         --api-key ${{ secrets.GITHUB_TOKEN }} \
         --skip-duplicate
