@@ -31,7 +31,7 @@ jobs:
       run: dotnet restore
       
     - name: Build Project
-      run: dotnet build --configuration Release \
+      run: dotnet build ./Mauren.Net.slnx --configuration Release \
         --no-restore
       
     - name: Test Project
